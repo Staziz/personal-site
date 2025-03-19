@@ -70,40 +70,30 @@ a, .btn-link {
 /* custom styles */
 
 /* Just to crank up the "fucked up" factor further */
-@-webkit-keyframes rotate {
-    from { -webkit-transform:rotate(0deg); }
-    to { -webkit-transform:rotate(360deg); }
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 45deg;
+    inherits: false;
   }
   
-  @-moz-keyframes rotate {
-    from { -moz-transform:rotate(0deg); }
-    to { -moz-transform:rotate(360deg); }
-  }
+@keyframes rotate-gradient { from { --angle: 45deg; } to { --angle: 405deg; } }
+@-webkit-keyframes rotate-gradient { from { --angle: 45deg; } to { --angle: 405deg; } }
+@-moz-keyframes rotate-gradient { from { --angle: 45deg; } to { --angle: 405deg; } }
 body {
     font-family: "Comic Sans MS", cursive, sans-serif;
     color: #0000FF;
     margin: 0;
     padding: 0;
-    overflow: hidden;
-}
-body::after{
-    content: '';
-    display: block;
-    z-index: -1;
-    position: absolute;
-    top: -100%; right: 0; bottom: 0; left: -100%;
-    width: 300%; 
-    height: 300%;
-    -webkit-animation-name: rotate;
+    -webkit-animation-name: rotate-gradient;
     -webkit-animation-duration:5s;
     -webkit-animation-iteration-count:infinite;
     -webkit-animation-timing-function:linear;
-    -moz-animation-name: rotate;
+    -moz-animation-name: rotate-gradient;
     -moz-animation-duration:5s;
     -moz-animation-iteration-count:infinite;
     -moz-animation-timing-function:linear;
     background: repeating-linear-gradient(
-        45deg,
+        var(--angle),
         #FF0000,
         #FF0000 10px,
         #00FF00 10px,
@@ -139,5 +129,7 @@ td {
 }
 
 div.top-row {
-    background-image: url("../../Contents/background.jpg");
+    background-image: url("/images/background.jpg");
+    background-size: contain;
+    background-blend-mode: overlay;
 }
